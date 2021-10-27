@@ -10,6 +10,7 @@ font-family: 'Space Mono', monospace;
     --selectionTimerBg: #161932;
     --accentColor: #F87070;
     --settingsBg : #FFFFFF;
+    --inputBg: #EFF1FA;
 }
 
 * {
@@ -22,6 +23,7 @@ font-family: 'Space Mono', monospace;
 body {
     background-color: var(--bodyBg) ;
     height: 100vh;
+    font-weight: bold;
 }
 
 .container {
@@ -98,15 +100,31 @@ main {
     background-origin: border-box;
     background-clip: content-box, border-box;
     box-shadow: -50px -50px 100px #272C5A, 50px 50px 100px #121530;
+    overflow: hidden;
+}
+
+.display-container {
+    height: 100%;
+    width: max-content;
+    padding: 0 13px;
+    display: flex;
+    justify-content: flex-start;
+    transform: translateX(0%);
+    transition: all 300ms ease-in-out;
+}
+
+.display-container div:nth-child(3) {
+    margin-right: 0;
 }
 
 .inner-container {
     height: 100%;
-    width: 100%;
+    width: 340px;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 50px;
 }
 
 .timer-progress {
@@ -122,7 +140,8 @@ main {
     stroke: var(--accentColor);
     stroke-width: 10px;
     stroke-dasharray: 1036;
-    stroke-dashoffset: calc(1036 - (1036 * 100) / 100);
+   /* stroke-dashoffset: calc(1036 - (1036 * 100) / 100);*/
+   transition: 1s linear all;
 }
 
 .timer {
@@ -161,7 +180,7 @@ main {
 }
 
 .settings-modal {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -173,8 +192,13 @@ main {
     z-index: 3;
 }
 
+.settings-modal-active {
+    display: flex;
+}
+
 .settings {
     width: 540px;
+    position: relative;
     background: var(--settingsBg) ;
     border-radius: 25px;
 }
@@ -184,7 +208,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #E3E1E1 ;
+    border-bottom: 1px solid #E3E1E1;
 }
 
 .settings-head h1 {
@@ -202,6 +226,270 @@ main {
 }
 
 .settings-main {
+    width: 100%;
     padding: 24px 38px 59px 40px ;
 }
+
+.time-set {
+    padding-bottom: 24px;
+    border-bottom:  1px solid #E3E1E1;
+}
+
+.time-set h2 {
+    margin-bottom: 22px;
+    font-size: 13px;
+    line-height: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--bodyBg);
+}
+
+.time {
+    display: flex;
+    justify-content: space-between;
+}
+
+.time label {
+    font-size: 12px;
+    line-height: 12px;
+    opacity: 0.4;
+    color: var(--bodyBg);
+}
+
+.time input {
+    width: 140px;
+    height: 48px;
+    margin-top: 8px;
+    padding: 15px 35px 19px 16px;
+    background: #EFF1FA;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 14px;
+    color: var(--bodyBg);
+    border: none;
+    outline: none;
+}
+
+.time input::-webkit-outer-spin-button,
+.time input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.time input[type=number] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.input-field {
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none; 
+    -khtml-user-select: none; 
+    -ms-user-select: none;
+}
+
+.arrow-up, .arrow-down {
+    position: absolute;
+    right: 13px;
+    z-index: 999;
+}
+
+.arrow-up {
+    top: 21px;
+}
+
+.arrow-down {
+    bottom: 14px;
+}
+
+.arrow-up:hover, .arrow-down:hover {
+    cursor: pointer;
+}
+
+.arrow-up:hover path, .arrow-down:hover path {
+    stroke-opacity: 1;
+}
+
+.arrow-up:active, .arrow-down:active{
+    transform: scale(0.70);
+    opacity: 1;
+}
+
+.error-msg {
+    display: none;
+    margin-top: 5px;
+    color: red;
+    font-size: 12px;
+    text-align: center;
+}
+
+.error-msg-active {
+    display: block;
+}
+
+.font-set {
+    padding: 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom:  1px solid #E3E1E1;
+}
+
+.font-set h2 {
+    font-size: 13px;
+    line-height: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--bodyBg);
+}
+
+.font-select {
+    display: flex;
+    align-items: center;
+}
+
+.font-select div {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--bodyBg);
+    margin-right: 8px ;
+    cursor: pointer;
+}
+
+.font-select div:hover  {
+    border: 1px solid #EFF1FA;
+}
+
+.font-select div p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+    line-height: 15px;
+    background: var(--inputBg);
+    border-radius: 50%;
+    opacity: 0.73;
+}
+
+.font-select div:nth-child(1) p {
+    font-family: 'Kumbh Sans', sans-serif;
+}
+
+.font-select div:nth-child(2) p {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 400;
+}
+
+.font-select div:nth-child(3) {
+    margin-right: 0;
+}
+
+.font-select div:nth-child(3) p {
+    font-family: 'Space Mono', monospace;
+}
+
+.font-select .active p {
+    background: var(--selectionTimerBg);
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.color-set {
+    padding-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.color-set h2 {
+    font-size: 13px;
+    line-height: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--selectionTimerBg);
+}
+
+.color-select {
+    display: flex;
+}
+
+.color {
+    width: 50px;
+    height: 50px;
+    margin-right: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.color-select .color:nth-child(3) {
+    margin-right: 0;
+}
+
+.color:hover {
+    border: 1px solid #EFF1FA;
+}
+
+.color-select .active .inner-circle img {
+    display: block;
+}
+
+.inner-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner-circle img {
+    width: 13px;
+    display: none;
+}
+
+.color-select div:nth-child(1) .inner-circle {
+    background-color: #F87070;
+}
+
+.color-select div:nth-child(2) .inner-circle {
+    background-color: #70F3F8;
+}
+
+.color-select div:nth-child(3) .inner-circle {
+    background-color: #D881F8;
+}
+
+.apply-btn {
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    bottom: -26px;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 53px;
+    background: var(--accentColor);
+    border-radius: 26.5px;
+    border: none;
+    font-size: 16px;
+    line-height: 16px;
+    color: #FFFFFF;
+    font: var(--font);
+}
+
+.apply-btn:hover {
+    background: #F98D8D;
+}
+
 

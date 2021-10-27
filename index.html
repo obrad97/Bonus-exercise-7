@@ -13,7 +13,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&family=Roboto+Slab:wght@700&family=Space+Mono:wght@700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&family=Roboto+Slab:wght@400;700&family=Space+Mono:wght@700&display=swap"
             rel="stylesheet"
         />
         <link rel="stylesheet" href="assets/css/style.css" />
@@ -34,19 +34,66 @@
             </section>
             <main>
                 <div class="timer-container">
-                    <div class="inner-container">
-                        <div class="timer">
-                            <h1 id="timer">25:00</h1>
-                            <p id="start-stop">restart</p>
+                    <div class="display-container">
+                        <div class="inner-container">
+                            <div class="timer">
+                                <h1 class="timer-display" id="pomodoro-display">
+                                    25:00
+                                </h1>
+                                <p id="start-pomodoro">start</p>
+                            </div>
+                            <svg class="timer-progress">
+                                <circle
+                                    class="pomodoro-progress-bar"
+                                    cx="50%"
+                                    cy="50%"
+                                    r="165"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
                         </div>
-                        <svg class="timer-progress">
-                            <circle
-                                cx="50%"
-                                cy="50%"
-                                r="165"
-                                stroke-linecap="round"
-                            />
-                        </svg>
+
+                        <div class="inner-container">
+                            <div class="timer">
+                                <h1
+                                    class="timer-display"
+                                    id="short-break-display"
+                                >
+                                    05:00
+                                </h1>
+                                <p id="start-short-break">start</p>
+                            </div>
+                            <svg class="timer-progress">
+                                <circle
+                                    class="short-break-progress-bar"
+                                    cx="50%"
+                                    cy="50%"
+                                    r="165"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </div>
+
+                        <div class="inner-container">
+                            <div class="timer">
+                                <h1
+                                    class="timer-display"
+                                    id="long-break-display"
+                                >
+                                    15:00
+                                </h1>
+                                <p class="start-long-break">start</p>
+                            </div>
+                            <svg class="timer-progress">
+                                <circle
+                                    class="long-break-progress-bar"
+                                    cx="50%"
+                                    cy="50%"
+                                    r="165"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </main>
@@ -79,7 +126,168 @@
                         </svg>
                     </div>
                 </div>
-                <div class="settings-main"></div>
+                <div class="settings-main">
+                    <div class="time-set">
+                        <h2>time (minutes)</h2>
+                        <div class="time">
+                            <div class="pomodoro">
+                                <label for="pomodoro">pomodoro</label>
+                                <div class="input-field">
+                                    <svg
+                                        class="arrow-up"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="14"
+                                        height="7"
+                                    >
+                                        <path
+                                            fill="none"
+                                            stroke="#1E213F"
+                                            stroke-opacity=".25"
+                                            stroke-width="2"
+                                            d="M1 6l6-4 6 4"
+                                        />
+                                    </svg>
+                                    <input
+                                        type="number"
+                                        value="25"
+                                        id="pomodoro"
+                                    />
+                                    <svg
+                                        class="arrow-down"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="14"
+                                        height="7"
+                                    >
+                                        <path
+                                            fill="none"
+                                            stroke="#1E213F"
+                                            stroke-opacity=".25"
+                                            stroke-width="2"
+                                            d="M1 1l6 4 6-4"
+                                        />
+                                    </svg>
+                                </div>
+                                <p class="error-msg"></p>
+                            </div>
+                            <div class="short-break">
+                                <label for="short-break">short break</label>
+                                <div class="input-field">
+                                    <svg
+                                        class="arrow-up"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="14"
+                                        height="7"
+                                    >
+                                        <path
+                                            fill="none"
+                                            stroke="#1E213F"
+                                            stroke-opacity=".25"
+                                            stroke-width="2"
+                                            d="M1 6l6-4 6 4"
+                                        />
+                                    </svg>
+                                    <input
+                                        type="number"
+                                        value="5"
+                                        id="short-break"
+                                    />
+                                    <svg
+                                        class="arrow-down"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="14"
+                                        height="7"
+                                    >
+                                        <path
+                                            fill="none"
+                                            stroke="#1E213F"
+                                            stroke-opacity=".25"
+                                            stroke-width="2"
+                                            d="M1 1l6 4 6-4"
+                                        />
+                                    </svg>
+                                </div>
+                                <p class="error-msg"></p>
+                            </div>
+                            <div class="long-break">
+                                <label for="long-break">long break</label>
+                                <div class="input-field">
+                                    <svg
+                                        class="arrow-up"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="14"
+                                        height="7"
+                                    >
+                                        <path
+                                            fill="none"
+                                            stroke="#1E213F"
+                                            stroke-opacity=".25"
+                                            stroke-width="2"
+                                            d="M1 6l6-4 6 4"
+                                        />
+                                    </svg>
+                                    <input
+                                        type="number"
+                                        value="15"
+                                        id="long-break"
+                                    />
+                                    <svg
+                                        class="arrow-down"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="14"
+                                        height="7"
+                                    >
+                                        <path
+                                            fill="none"
+                                            stroke="#1E213F"
+                                            stroke-opacity=".25"
+                                            stroke-width="2"
+                                            d="M1 1l6 4 6-4"
+                                        />
+                                    </svg>
+                                </div>
+                                <p class="error-msg"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="font-set">
+                        <h2>font</h2>
+                        <div class="font-select">
+                            <div class="font active"><p>Aa</p></div>
+                            <div class="font"><p>Aa</p></div>
+                            <div class="font"><p>Aa</p></div>
+                        </div>
+                    </div>
+                    <div class="color-set">
+                        <h2>color</h2>
+                        <div class="color-select">
+                            <div class="color active">
+                                <div class="inner-circle">
+                                    <img
+                                        src="assets/images/icon-check.svg"
+                                        alt="check"
+                                    />
+                                </div>
+                            </div>
+                            <div class="color">
+                                <div class="inner-circle">
+                                    <img
+                                        src="assets/images/icon-check.svg"
+                                        alt="check"
+                                    />
+                                </div>
+                            </div>
+                            <div class="color">
+                                <div class="inner-circle">
+                                    <img
+                                        src="assets/images/icon-check.svg"
+                                        alt="check"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="apply-btn" type="button">Apply</button>
             </div>
         </div>
         <script src="assets/js/script.js"></script>
