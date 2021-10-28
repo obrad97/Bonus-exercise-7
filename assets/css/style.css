@@ -80,7 +80,8 @@ body {
     border-radius: 26.5px;
     margin: 0 auto;
     left: 50%;
-    transform: translateX(-145%);
+    top: 50%;
+    transform: translate(-145%, -50%);
     transition: all 300ms ease-in-out;
     z-index: 0;
 }
@@ -92,8 +93,8 @@ main {
 }
 
 .timer-container {
-    height: 100%;
-    width: 100%;
+    width: 410px;
+    height: 410px;
     border: double 22px transparent;
     border-radius: 50%;
     background-image: linear-gradient(var(--selectionTimerBg), var(--selectionTimerBg)), radial-gradient(circle at top left,#0E112A ,#2E325A);
@@ -141,7 +142,7 @@ main {
     stroke-width: 10px;
     stroke-dasharray: 1036;
    /* stroke-dashoffset: calc(1036 - (1036 * 100) / 100);*/
-   transition: 1s linear all;
+    transition: 1s linear all;
 }
 
 .timer {
@@ -490,6 +491,151 @@ main {
 
 .apply-btn:hover {
     background: #F98D8D;
+}
+
+@media only screen and (max-width:490px){
+
+    .container {
+        width: 100%;
+        justify-content: unset;
+        padding-top: 32px;
+    }
+
+    .selection {
+        width: 327px;
+    }
+
+    .selection div p {
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    main {
+        width: 300px;
+        height: 300px;
+    }
+
+    .timer-container {
+        margin: 0 auto;
+        width: 300px;
+        height: 300px;
+        border: double 16px transparent;
+    }
+
+    .timer h1 {
+        font-size: 80px;
+        line-height: 80px;
+        letter-spacing: -4px;
+    }
+
+    .timer p {
+        font-size: 14px;
+        line-height: 14px;
+        letter-spacing: 13.125px;
+    }
+
+    .timer-progress {
+        width: 300px;
+        height: 300px;
+    }
+
+    .timer-progress circle {
+        r: 120;
+        stroke-width: 8px;
+        stroke-dasharray: 753;
+    }
+
+    .inner-container {
+        width: 242px;
+        margin-right: 45px;
+    }
+
+    .settings-modal {
+        overflow: scroll;
+        align-items: unset;
+        padding: 30px 0 50px 0;
+    }
+
+    .settings {
+        width: 90vw;
+        height: max-content;
+    }
+
+    .settings-head {
+        padding: 24px 24px 28px 24px;
+    }
+
+    .settings-head h1 {
+        font-size: 20px;
+        line-height: 20px;
+    }
+
+    .settings-main {
+        padding: 24px 24px 59px 24px;
+    }
+
+    .time-set h2 {
+        font-size: 11px;
+        line-height: 11px;
+        letter-spacing: 4.23077px;
+        text-align: center;
+    }
+
+    .time {
+        flex-direction: column;
+    }
+
+    .time div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center ;
+        margin-bottom: 8px;
+    }
+
+    .time div input {
+        width: 140px;
+        height: 40px;
+        margin: 0;
+    }
+
+    .time .input-field {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+    }
+
+    .arrow-up{
+        top: 10px;
+    }
+    
+    .arrow-down {
+        bottom: 8px;
+    }
+
+    .font-set {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .font-set h2 {
+        margin-bottom: 18px;
+        font-size: 11px;
+        line-height: 11px;
+        letter-spacing: 4.23077px;
+    }
+
+    .color-set {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .color-set h2 {
+        margin-bottom: 18px;
+        font-size: 11px;
+        line-height: 11px;
+        letter-spacing: 4.23077px;
+    }
 }
 
 

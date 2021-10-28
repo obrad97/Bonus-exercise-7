@@ -5,7 +5,7 @@ const shortBreakInput = document.getElementById('short-break');
 const longBreakInput = document.getElementById('long-break');
 const arrowUp = document.querySelectorAll('.arrow-up');
 const arrowDown = document.querySelectorAll('.arrow-down');
-const errorMsg = document.querySelectorAll('.error-msg');
+const errorMsg = document.querySelector('.error-msg');
 const settingsOpen = document.querySelector('.settings-icon');
 const settingsClose = document.querySelector('.close-settings');
 const settings = document.querySelector('.settings-modal');
@@ -44,14 +44,33 @@ const changeCountdownDisplay = (selection, index)=> {
             activeSelection.classList.remove('selection-active')
         }
         selection.classList.add('selection-active');
-        selector.style.transform = `translateX(${-145+(index*95)}%)`
+        selector.style.transform = `translate(${-145+(index*95)}%, -50%)`
         display.style.transform = `translateX(${0-(index*34)}%)`
 }
 
 const openCloseSettings = () => {
     settings.classList.toggle('settings-modal-active');
+    resetTimer();
 }
 
+const resetTimer = () => {
+    pomodoroProgress.setAttribute('stroke-dashoffset', 0);
+    pomodoroIsActive = false;
+    pomodoroTime = initialPomodoroTime;
+    pomodoroStart.innerText = 'start';
+    clearInterval(pomodoroCountdown);
+    shortBreakProgress.setAttribute('stroke-dashoffset', 0);
+    shortBreakIsActive = false;
+    shortBreakTime = initialShortBreakTime;
+    longBreakStart.innerText = 'start';
+    clearInterval(shortBreakCountdown);
+    longBreakProgress.setAttribute('stroke-dashoffset', 0);
+    longBreakIsActive = false;
+    longBreakTime = initialLongBreakTime;
+    shortBreakStart.innerText = 'start';
+    clearInterval(longBreakCountdown);
+    initialTimeSet();
+}
 
 const fontChange = (selection) => {
     let activeSelection = document.querySelector('.font.active');
@@ -76,16 +95,8 @@ const colorChange = (selection) => {
 const valueIncrement = (arrow, index)=> {
     let input = arrow.nextElementSibling;
     let value = parseInt(input.value);
-    let error = errorMsg[index]
-    if (value >= 60) {
-        error.innerText = "Max length is 60 minutes"
-        error.classList.toggle('error-msg-active');
-        setTimeout(() => {
-            error.classList.toggle('error-msg-active');
-        }, 2000);
-        return
-    }else if (isNaN(value)) {
-        input.value = 1;
+    if (isNaN(value)) {
+    input.value = 1; 
     }else {
         input.value ++;
     }
@@ -109,16 +120,28 @@ const initialTimeSet =() => {
 }
 
 const applySettings = () => {
-    document.documentElement.style.setProperty('--accentColor', ''+color+'');
-    document.documentElement.style.setProperty('--font', ''+font+'');
-    pomodoroTime = parseInt(pomodoroInput.value) * 60;
-    initialPomodoroTime = pomodoroTime;
-    shortBreakTime = parseInt(shortBreakInput.value)* 60;
-    initialShortBreakTime = shortBreakTime;
-    longBreakTime = parseInt(longBreakInput.value)* 60;
-    initialLongBreakTime = longBreakTime;
-    openCloseSettings();
-    initialTimeSet();
+    let pomodoroValue = parseInt(pomodoroInput.value);
+    let shortBreakValue = parseInt(shortBreakInput.value);
+    let longBreakValue = parseInt(longBreakInput.value);
+    let inputs = settings.querySelectorAll('input');
+    inputs.forEach((input)=> {
+        inputValue = parseInt(input.value)
+        if (inputValue <= 0 || inputValue > 60 || isNaN(inputValue)) {
+            errorMsg.classList.add('error-msg-active')
+        }else {
+            document.documentElement.style.setProperty('--accentColor', ''+color+'');
+            document.documentElement.style.setProperty('--font', ''+font+'');
+            pomodoroTime = parseInt(pomodoroInput.value) * 60;
+            initialPomodoroTime = pomodoroTime;
+            shortBreakTime = parseInt(shortBreakInput.value)* 60;
+            initialShortBreakTime = shortBreakTime;
+            longBreakTime = parseInt(longBreakInput.value)* 60;
+            initialLongBreakTime = longBreakTime;
+            openCloseSettings();
+            initialTimeSet();
+            errorMsg.classList.remove('error-msg-active')
+        }
+    })
 }
 
 const pomodoroCountdownHandler = () => {
@@ -134,7 +157,11 @@ const pomodoroCountdownHandler = () => {
         if (seconds < 10){
             seconds = "0"+seconds;
         }
-        pomodoroProgress.setAttribute('stroke-dashoffset', (1036- (1036 * (pomodoroTime/initialPomodoroTime))))
+        if (window.innerWidth <= 490){
+            pomodoroProgress.setAttribute('stroke-dashoffset', (753- (753 * (pomodoroTime/initialPomodoroTime))))
+        }else {
+            pomodoroProgress.setAttribute('stroke-dashoffset', (1036- (1036 * (pomodoroTime/initialPomodoroTime))))
+        }
         pomodoroDsiplay.innerText = `${minutes}:${seconds}` 
         if ( pomodoroTime == 0 ){
             clearInterval(pomodoroCountdown);
@@ -158,7 +185,11 @@ const shortBreakCountdownHandler = () => {
         if (seconds < 10){
             seconds = "0"+seconds;
         }
-        shortBreakProgress.setAttribute('stroke-dashoffset', (1036- (1036 * (shortBreakTime/initialShortBreakTime))));
+        if (window.innerWidth <= 490) {
+            shortBreakProgress.setAttribute('stroke-dashoffset', (753- (753 * (shortBreakTime/initialShortBreakTime))));
+        }else {
+            shortBreakProgress.setAttribute('stroke-dashoffset', (1036- (1036 * (shortBreakTime/initialShortBreakTime))));
+        }
         shortBreakDsiplay.innerText = `${minutes}:${seconds}`;
         if(shortBreakTime == 0){
             clearInterval(shortBreakCountdown);
@@ -182,7 +213,11 @@ const longBreakCountdownHandler = () => {
         if (seconds < 10){
             seconds = "0"+seconds;
         }
-        longBreakProgress.setAttribute('stroke-dashoffset', (1036- (1036 * (longBreakTime/initialLongBreakTime))));
+        if (window.innerWidth <= 490){
+            longBreakProgress.setAttribute('stroke-dashoffset', (753- (753 * (longBreakTime/initialLongBreakTime))));
+        }else {
+            longBreakProgress.setAttribute('stroke-dashoffset', (1036- (1036 * (longBreakTime/initialLongBreakTime))));
+        }
         longBreakDsiplay.innerText = `${minutes}:${seconds}`;
         if(longBreakTime == 0){
             clearInterval(longBreakCountdown);
