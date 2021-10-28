@@ -22,7 +22,6 @@ font-family: 'Space Mono', monospace;
 
 body {
     background-color: var(--bodyBg) ;
-    height: 100vh;
     font-weight: bold;
 }
 
@@ -34,6 +33,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 48px;
 }
 
 .head {
@@ -65,6 +65,11 @@ body {
     font-size: 14px;
     line-height: 14px;
     z-index: 1;  
+}
+
+.selection div p:hover {
+    color: #FFFFFF;
+    opacity: 1;
 }
 
 .selection .selection-active p {
